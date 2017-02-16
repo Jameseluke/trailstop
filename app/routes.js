@@ -1,52 +1,65 @@
 var Todo = require('./models/todo');
+var Nedb = require('nedb');
+var stocks = new Nedb({ filename: './stocks.db', autoload: true });
+stocks.ensureIndex({ fieldName: 'code', unique: true });
 
-function getTodos(res) {
-    Todo.find(function (err, todos) {
+function stock(code, name, dayHigh, alertPercentage, alertValue) {
+    this.code = code;
+    this.name = name;
+    this.dayHigh = dayHigh;
+    this.alertPercentage = alertPercentage;
+    this.alertValue = alertValue;
+    this.dateCreated = (new Date()).getTime();
+}
 
-        // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+
+function getStocks(res) {
+    stocks.find({}, function (err, docs) {
         if (err) {
             res.send(err);
         }
 
-        res.json(todos); // return all todos in JSON format
-    });
+        res.json(docs); 
+      });
 };
 
 module.exports = function (app) {
 
     // api ---------------------------------------------------------------------
     // get all todos
-    app.get('/api/todos', function (req, res) {
-        // use mongoose to get all todos in the database
-        getTodos(res);
+    app.get('/api/stocks', function (req, res) {
+        getStocks(res);
     });
 
     // create todo and send back all todos after creation
-    app.post('/api/todos', function (req, res) {
-
+    app.post('/api/stocks', function (req, res) {
+        var tempStock = new stock(
+                req.body.code,
+                req.body.name,
+                req.body.dayHigh,
+                req.body.alertPercentage,
+                req.body.alertValue
+            )
         // create a todo, information comes from AJAX request from Angular
-        Todo.create({
-            text: req.body.text,
-            done: false
-        }, function (err, todo) {
-            if (err)
+        stocks.insert(tempStock, function (err) {
+            if (err){
                 res.send(err);
-
+            } else {
+                getStocks(res);
+            }
             // get and return all the todos after you create another
-            getTodos(res);
-        });
 
+        });
     });
 
     // delete a todo
-    app.delete('/api/todos/:todo_id', function (req, res) {
-        Todo.remove({
-            _id: req.params.todo_id
-        }, function (err, todo) {
-            if (err)
+    app.delete('/api/stocks/:stock_id', function (req, res) {
+        stocks.remove({ _id: req.params.stock_id}, {}, function (err, numRemoved) {
+            // numRemoved = 1
+            if (err) {
                 res.send(err);
-
-            getTodos(res);
+                getStocks(res);
+            }
         });
     });
 
