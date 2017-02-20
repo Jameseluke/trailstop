@@ -5,6 +5,10 @@ function mainController($scope, $http) {
 	$scope.changeAlert = function(key){
 		$scope.newStocks[key].alertValue = (parseFloat($scope.newStocks[key].dayHigh) * (100-parseInt($scope.newStocks[key].alertPercentage))/100).toFixed(2);
 	}
+	
+	$scope.sortType     = 'dateCreated'; // set the default sort type
+	$scope.sortReverse  = true;  // set the default sort order
+	$scope.searchFish   = '';     // set the default search/filter term
 	$scope.fetchStockData = function($event){
 		var key = $event.keyCode;
     	if($event.which === 13) {
@@ -100,16 +104,18 @@ function mainController($scope, $http) {
 	// when submitting the add form, send the text to the node API
 	$scope.createStock = function(key) {
 		var postData = {
-			"code": $scope.newStocks[key].code,
+			"code": key,
 			"name": $scope.newStocks[key].name,
 			"dayHigh": $scope.newStocks[key].dayHigh,
 			"alertPercentage": $scope.newStocks[key].alertPercentage,
-			"alertAmount": $scope.newStocks[key].alertAmount
+			"alertValue": $scope.newStocks[key].alertValue
 		}
-		delete $scope.newStocks[key]; 
+		console.log(postData);
+		delete $scope.newStocks[key];
 		$http.post('/api/stocks', postData)
 			.success(function(data) {
-				$scope.newStocks = {}; // clear the form so our user is ready to enter another
+				delete $scope.codes[key];
+				// clear the form so our user is ready to enter another
 				$scope.stocks = data;
 				console.log(data);
 			})
@@ -128,5 +134,21 @@ function mainController($scope, $http) {
 				console.log('Error: ' + data);
 			});
 	};
-
+	
+	$scope.check = function(value) {
+		if($scope.sortType != value){
+			$scope.sortType = value;
+			$scope.sortReverse = false;
+			return;
+		}
+		if($scope.sortType == value && !$scope.sortReverse){
+			$scope.sortReverse = !$scope.sortReverse;
+			return;
+		}
+		else {
+			$scope.sortReverse = true;
+			$scope.sortType = 'dateCreated';
+			return;
+		}
+	}
 }

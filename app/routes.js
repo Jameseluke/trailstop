@@ -37,8 +37,8 @@ module.exports = function (app) {
                 req.body.code,
                 req.body.name,
                 req.body.dayHigh,
-                req.body.alertPercentage,
-                req.body.alertValue
+                parseInt(req.body.alertPercentage),
+                parseFloat(req.body.alertValue)
             )
         // create a todo, information comes from AJAX request from Angular
         stocks.insert(tempStock, function (err) {

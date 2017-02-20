@@ -1,1 +1,5 @@
 {"$$indexCreated":{"fieldName":"code","unique":true,"sparse":false}}
+{"code":"GOOG","name":"Alphabet Inc.","dayHigh":"828.07","alertPercentage":10,"alertValue":745.26,"dateCreated":1487557627413,"_id":"z749L4dFbIUEejQL"}
+{"code":"BHP","name":"BHP Billiton Limited Common Sto","dayHigh":"40.36","alertPercentage":20,"alertValue":32.29,"dateCreated":1487557648687,"_id":"Nwo1cllDWeSrYWTK"}
+{"code":"WES.AX","name":"WESFARMER FPO","dayHigh":"43.19","alertPercentage":20,"alertValue":34.55,"dateCreated":1487557655938,"_id":"4JO14CmTMfak68Oo"}
+{"code":"ANZ.AX","name":"ANZ BANK FPO","dayHigh":"31.18","alertPercentage":20,"alertValue":24.94,"dateCreated":1487557863009,"_id":"scTGxxOYLTOYInds"}

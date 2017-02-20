@@ -11,23 +11,27 @@
 
 	<!-- SCROLLS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<style>
 		html 					{ overflow-y:scroll; }
 		body 					{ padding-top:50px; }
 		#todo-list 				{ margin-bottom:30px; }
 		#todo-form 	 			{ margin-bottom:50px; }
 		td						{ padding: 10px; }
+		.invis    				{ display: none;}
 		.bootstrap-select.btn-group .dropdown-menu li > a { text-align: center; }
 	</style>
 
 	<!-- SPELLS -->
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+	
 	<script src="core.js"></script>
 
 </head>
 <!-- SET THE CONTROLLER AND GET ALL TODOS WITH INITIALIZE FUNCTION -->
 <body ng-controller="mainController">
 	<div class="container">
+		<h2 class ="text-center">New Alerts</h2>
 	      <input type="text" class="form-control" ng-keydown="fetchStockData($event)" 
 	      placeholder="Enter Business Codes Here..." ng-model="codes" ng-list>
 		<div ng-show="!isEmptyObject(newStocks)" class="table-responsive"> 
@@ -48,11 +52,73 @@
 								<option ng-selected="{{n == value.alertPercentage}}"ng-repeat="n in range(5,35,5)">{{n}}</option>
 					</select></td>
 					<td><input type="text" class="form-control" ng-model="newStocks[key].alertValue"></td>
-					<td><button type="submit" class="btn btn-primary" ng-click="createStock(key)">Add</button></td>
+					<td><button type="submit" class="btn btn-primary btn-block" ng-click="createStock(key)">Add</button></td>
 				</tr>
 			</table>
 		</div>
-	
+		<div id = "tracked" ng-show="!isEmptyObject(stocks)">
+			<h2 class ="text-center">Tracked Stocks</h2>
+			<form>
+			    <div class="form-group">
+			      <div class="input-group">
+			        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+			        <input type="text" class="form-control" placeholder="Search Stocks..." ng-model="searchStocks">
+			      </div>      
+			    </div>
+			</form>
+			<table class="table table-bordered table-striped table-responsive">
+				
+			    <thead>
+			      <tr>
+			      	<td class="invis"> Date Created
+			      		
+			      	</td>
+			        <td>
+			          <a href="#" ng-click="check('code')">
+			            Code 
+			            <span ng-show="sortType == 'code' && !sortReverse" class="fa fa-caret-down"></span>
+			            <span ng-show="sortType == 'code' && sortReverse" class="fa fa-caret-up"></span>
+			          </a>
+			        </td>
+			        <td>
+			          <a href="#" ng-click="check('name')">
+			          Name 
+			            <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+			            <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+			          </a>
+			        </td>
+			        <td>
+			          <a href="#" ng-click="check('alertPercentage')">
+			          Alert Percentage 
+			            <span ng-show="sortType == 'alertPercentage' && !sortReverse" class="fa fa-caret-down"></span>
+			            <span ng-show="sortType == 'alertPercentage' && sortReverse" class="fa fa-caret-up"></span>
+			          </a>
+			        </td> 
+			        <td>
+			          <a href="#" ng-click="check('alertValue')">
+			          Alert Value
+			            <span ng-show="sortType == 'alertValue' && !sortReverse" class="fa fa-caret-down"></span>
+			            <span ng-show="sortType == 'alertValue' && sortReverse" class="fa fa-caret-up"></span>
+			          </a>
+			        </td>
+			      </tr>
+			    </thead>
+			    
+			    <tbody>
+			      <tr ng-repeat="stock in stocks | orderBy:sortType:sortReverse | filter:searchStocks">
+			      	<td class="invis">{{stock.dateCreated}}</td>
+			        <td>{{ stock.code }}</td>
+			        <td>{{ stock.name }}</td>
+			        <td>{{ stock.alertPercentage }}</td>
+			        <td>{{ stock.alertValue }}</td>
+			      </tr>
+			    </tbody>
+			</table>
+		</div>
+		
+		<p class="text-center text-muted">
+    		by James Luke
+  		</p>
 		
 		
 		<!-- HEADER AND TODO COUNT -->
