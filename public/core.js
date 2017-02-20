@@ -99,6 +99,7 @@ function mainController($scope, $http) {
 				datum["editing"] = false;
 				datum["deleting"] = false;
 			});
+			console.log(data);
 			$scope.stocks = data;
 		})
 		.error(function(data) {
@@ -157,6 +158,30 @@ function mainController($scope, $http) {
 			$scope.sortReverse = true;
 			$scope.sortType = 'dateCreated';
 			return;
+		}
+	}
+	
+	$scope.startEditing = function(stock){
+		console.log(stock);
+		stock.editing = true;
+	}
+	
+	$scope.stopEditing = function(commit, stock){
+		stock.editing = false;
+		if(commit){
+			console.log('commited edit [TODO]');
+		}
+	}
+	
+	$scope.startDeleting = function(stock){
+		console.log(stock);
+		stock.deleting = true;
+	}
+	
+	$scope.stopDeleting = function(commit, stock){
+		stock.deleting = false;
+		if(commit){
+			$scope.deleteStock(stock._id);
 		}
 	}
 }

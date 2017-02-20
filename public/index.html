@@ -19,6 +19,7 @@
 		#todo-form 	 			{ margin-bottom:50px; }
 		td						{ padding: 10px; }
 		.invis    				{ display: none;}
+		.btn 					{ width: 75px;}
 		.bootstrap-select.btn-group .dropdown-menu li > a { text-align: center; }
 	</style>
 
@@ -42,7 +43,6 @@
 					<td>Day High</td>
 					<td>Alert Percentage</td>
 					<td>Alert Value</td>
-					<td></td>
 				</tr>
 				<tr ng-repeat="(key, value) in newStocks">
 					<td><p class="form-control-static">{{ key }}</p></td>
@@ -66,7 +66,7 @@
 			      </div>      
 			    </div>
 			</form>
-			<table class="table table-bordered table-striped table-responsive">
+			<table class="table table-bordered table-striped table-responsive text-center">
 				
 			    <thead>
 			      <tr>
@@ -115,8 +115,14 @@
 			        <td>{{ stock.alertPercentage }}</td>
 			        <td>{{ stock.alertValue }}</td>
 			        <td>
-			        	<button id="btnEdit" class="btn btn-primary btn-md center-block"  ng-click="btnSearch_Click" >Edit</button>
-         				<button id="btnDelete" class="btn btn-danger btn-md center-block" ng-click="deleteStock(stock._id)" >Delete</button>
+				   		<div class = "text-center">
+				        	<button id="btnEdit" class="btn btn-primary btn-md center-block" ng-show="!stock.editing && !stock.deleting"  ng-click="startEditing(stock)" >Edit</button>
+				        	<button id="btnEdit" class="btn btn-danger btn-md center-block" ng-show="stock.editing && !stock.deleting"  ng-click="stopEditing(false, stock)" >Cancel</button>
+				        	<button id="btnEdit" class="btn btn-success btn-md center-block" ng-show="stock.editing && !stock.deleting"  ng-click="stopEditing(true, stock)" >Save</button>
+	         				<button id="btnDelete" class="btn btn-danger btn-md center-block" ng-show="!stock.editing && !stock.deleting" ng-click="startDeleting(stock)" >Delete</button>
+	         				<button id="btnDelete" class="btn btn-danger btn-md center-block" ng-show="!stock.editing && stock.deleting" ng-click="stopDeleting(true, stock)" >Confirm</button>
+	         				<button id="btnDelete" class="btn btn-primary btn-md center-block" ng-show="!stock.editing && stock.deleting" ng-click="stopDeleting(false, stock)" >Cancel</button>
+				        </div>
 			        </td>
 			      </tr>
 			    </tbody>
