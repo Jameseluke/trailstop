@@ -7,7 +7,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
 
-	<title>Node/Angular Todo App</title>
+	<title>Trailing Stop Loss</title>
 
 	<!-- SCROLLS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
@@ -101,6 +101,9 @@
 			            <span ng-show="sortType == 'alertValue' && sortReverse" class="fa fa-caret-up"></span>
 			          </a>
 			        </td>
+			        <td>
+			        	Actions 
+			        </td>
 			      </tr>
 			    </thead>
 			    
@@ -111,6 +114,10 @@
 			        <td>{{ stock.name }}</td>
 			        <td>{{ stock.alertPercentage }}</td>
 			        <td>{{ stock.alertValue }}</td>
+			        <td>
+			        	<button id="btnEdit" class="btn btn-primary btn-md center-block"  ng-click="btnSearch_Click" >Edit</button>
+         				<button id="btnDelete" class="btn btn-danger btn-md center-block" ng-click="deleteStock(stock._id)" >Delete</button>
+			        </td>
 			      </tr>
 			    </tbody>
 			</table>

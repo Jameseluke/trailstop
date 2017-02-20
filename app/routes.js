@@ -36,7 +36,7 @@ module.exports = function (app) {
         var tempStock = new stock(
                 req.body.code,
                 req.body.name,
-                req.body.dayHigh,
+                parseFloat(req.body.dayHigh),
                 parseInt(req.body.alertPercentage),
                 parseFloat(req.body.alertValue)
             )
@@ -52,14 +52,18 @@ module.exports = function (app) {
         });
     });
 
-    // delete a todo
     app.delete('/api/stocks/:stock_id', function (req, res) {
         stocks.remove({ _id: req.params.stock_id}, {}, function (err, numRemoved) {
             // numRemoved = 1
             if (err) {
                 res.send(err);
-                getStocks(res);
             }
+            stocks.find({}, function (err, docs) {
+                if (err) {
+                    res.send(err);
+                }
+                res.json(docs); 
+              });
         });
     });
 

@@ -1,5 +1,8 @@
 {"$$indexCreated":{"fieldName":"code","unique":true,"sparse":false}}
-{"code":"GOOG","name":"Alphabet Inc.","dayHigh":"828.07","alertPercentage":10,"alertValue":745.26,"dateCreated":1487557627413,"_id":"z749L4dFbIUEejQL"}
-{"code":"BHP","name":"BHP Billiton Limited Common Sto","dayHigh":"40.36","alertPercentage":20,"alertValue":32.29,"dateCreated":1487557648687,"_id":"Nwo1cllDWeSrYWTK"}
-{"code":"WES.AX","name":"WESFARMER FPO","dayHigh":"43.19","alertPercentage":20,"alertValue":34.55,"dateCreated":1487557655938,"_id":"4JO14CmTMfak68Oo"}
-{"code":"ANZ.AX","name":"ANZ BANK FPO","dayHigh":"31.18","alertPercentage":20,"alertValue":24.94,"dateCreated":1487557863009,"_id":"scTGxxOYLTOYInds"}
+{"code":"AMX","name":"America Movil, S.A.B. de C.V. A","dayHigh":12.85,"alertPercentage":15,"alertValue":10.92,"dateCreated":1487565414399,"_id":"dr2Jd3Y8qKm9L9Pa"}
+{"code":"GOOG","name":"Alphabet Inc.","dayHigh":828.07,"alertPercentage":35,"alertValue":538.25,"dateCreated":1487565414991,"_id":"Xbpf7zncsh95Pxbf"}
+{"code":"WES","name":"Western Gas Partners, LP Limite","dayHigh":65.42,"alertPercentage":10,"alertValue":58.88,"dateCreated":1487565415226,"_id":"FrvY1SnUonpkmB8O"}
+{"code":"ANZ.AX","name":"ANZ BANK FPO","dayHigh":31.18,"alertPercentage":10,"alertValue":28.06,"dateCreated":1487565415478,"_id":"IiB5jvvL76sxvgqK"}
+{"code":"WES.AX","name":"WESFARMER FPO","dayHigh":42.34,"alertPercentage":25,"alertValue":31.76,"dateCreated":1487565416264,"_id":"bvfz3pvPfLmeNBoK"}
+{"code":"NAB.AX","name":"NAT. BANK FPO","dayHigh":31.88,"alertPercentage":15,"alertValue":27.1,"dateCreated":1487565416911,"_id":"43cbslCmcKSCiH13"}
+{"$$deleted":true,"_id":"43cbslCmcKSCiH13"}

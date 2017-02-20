@@ -95,6 +95,10 @@ function mainController($scope, $http) {
 	// when landing on the page, get all todos and show them
 	$http.get('/api/stocks')
 		.success(function(data) {
+			data.forEach(function(datum){
+				datum["editing"] = false;
+				datum["deleting"] = false;
+			});
 			$scope.stocks = data;
 		})
 		.error(function(data) {
@@ -125,10 +129,14 @@ function mainController($scope, $http) {
 	};
 
 	// delete a todo after checking it
-	$scope.deleteTodo = function(id) {
-		$http.delete('/api/todos/' + id)
+	$scope.deleteStock = function(id) {
+		$http.delete('/api/stocks/' + id)
 			.success(function(data) {
-				$scope.todos = data;
+			data.forEach(function(datum){
+				datum["editing"] = false;
+				datum["deleting"] = false;
+			});
+				$scope.stocks = data;
 			})
 			.error(function(data) {
 				console.log('Error: ' + data);
