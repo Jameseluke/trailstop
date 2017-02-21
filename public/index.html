@@ -47,7 +47,7 @@
 				<tr ng-repeat="(key, value) in newStocks">
 					<td><p class="form-control-static">{{ key }}</p></td>
 					<td><p class="form-control-static">{{ value.name }}</p></td>
-					<td><p class="form-control-static">{{value.dayHigh}}</td>
+					<td><p class="form-control-static">{{value.dayHigh + " (" + value.currency + ")"}}</td>
 					<td><select class="form-control" ng-model="value.alertPercentage" ng-change="changeAlert(key)" selected="20">
 								<option ng-selected="{{n == value.alertPercentage}}"ng-repeat="n in range(5,35,5)">{{n}}</option>
 					</select></td>
@@ -88,6 +88,21 @@
 			          </a>
 			        </td>
 			        <td>
+			          <a href="#" ng-click="check('currency')">
+			          Currency
+			            <span ng-show="sortType == 'currency' && !sortReverse" class="fa fa-caret-down"></span>
+			            <span ng-show="sortType == 'currency' && sortReverse" class="fa fa-caret-up"></span>
+			          </a>
+			        </td>
+			        <td>
+			          <a href="#" ng-click="check('dayHigh')">
+			          
+			          Day High 
+			            <span ng-show="sortType == 'dayHigh' && !sortReverse" class="fa fa-caret-down"></span>
+			            <span ng-show="sortType == 'dayHigh' && sortReverse" class="fa fa-caret-up"></span>
+			          </a>
+			        </td> 
+			        <td>
 			          <a href="#" ng-click="check('alertPercentage')">
 			          Alert Percentage 
 			            <span ng-show="sortType == 'alertPercentage' && !sortReverse" class="fa fa-caret-down"></span>
@@ -112,8 +127,14 @@
 			      	<td class="invis">{{stock.dateCreated}}</td>
 			        <td>{{ stock.code }}</td>
 			        <td>{{ stock.name }}</td>
-			        <td>{{ stock.alertPercentage }}</td>
-			        <td>{{ stock.alertValue }}</td>
+			        <td>{{ stock.currency }}</td>
+			        <td>{{ stock.dayHigh }}</td>
+			        <td ng-show = "stock.editing"><select class="form-control" ng-model="stock.tempPercentage" ng-change="changeTempAlert(stock)" selected="20">
+								<option ng-selected="{{n == value.alertPercentage}}"ng-repeat="n in range(5,35,5)">{{n}}</option>
+					</select></td>
+			        <td ng-show = "!stock.editing">{{ stock.alertPercentage }}</td>
+			        <td ng-show = "stock.editing"><input type="text" class="form-control" ng-model="stock.tempValue"></td>
+			        <td ng-show = "!stock.editing">{{ stock.alertValue }}</td>
 			        <td>
 				   		<div class = "text-center">
 				        	<button id="btnEdit" class="btn btn-primary btn-md center-block" ng-show="!stock.editing && !stock.deleting"  ng-click="startEditing(stock)" >Edit</button>

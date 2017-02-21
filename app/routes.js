@@ -3,12 +3,13 @@ var Nedb = require('nedb');
 var stocks = new Nedb({ filename: './stocks.db', autoload: true });
 stocks.ensureIndex({ fieldName: 'code', unique: true });
 
-function stock(code, name, dayHigh, alertPercentage, alertValue) {
+function stock(code, name, dayHigh, alertPercentage, alertValue, currency) {
     this.code = code;
     this.name = name;
     this.dayHigh = dayHigh;
     this.alertPercentage = alertPercentage;
     this.alertValue = alertValue;
+    this.currency = currency;
     this.dateCreated = (new Date()).getTime();
 }
 
@@ -38,7 +39,8 @@ module.exports = function (app) {
                 req.body.name,
                 parseFloat(req.body.dayHigh),
                 parseInt(req.body.alertPercentage),
-                parseFloat(req.body.alertValue)
+                parseFloat(req.body.alertValue),
+                req.body.currency
             )
         // create a todo, information comes from AJAX request from Angular
         stocks.insert(tempStock, function (err) {
@@ -64,6 +66,19 @@ module.exports = function (app) {
                 }
                 res.json(docs); 
               });
+        });
+    });
+    
+    app.post('/api/stocks/:stock_id', function (req, res){
+        var newAlertPercentage = parseInt(req.body.alertPercentage);
+        var newAlertValue = parseFloat(req.body.alertValue);
+        stocks.update({ _id: req.params.stock_id }, { $set: { alertValue: newAlertValue, alertPercentage: newAlertPercentage}}, {}, function () {
+            stocks.find({ _id: req.params.stock_id}, function(err, docs) {
+                if (err) {
+                    res.send(err);
+                }
+                res.json(docs);
+            })
         });
     });
 

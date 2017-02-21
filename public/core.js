@@ -6,6 +6,10 @@ function mainController($scope, $http) {
 		$scope.newStocks[key].alertValue = (parseFloat($scope.newStocks[key].dayHigh) * (100-parseInt($scope.newStocks[key].alertPercentage))/100).toFixed(2);
 	}
 	
+	$scope.changeTempAlert = function(stock){
+		stock.tempValue = (parseFloat(stock.dayHigh) * (100-parseInt(stock.tempPercentage))/100).toFixed(2);
+	}
+	
 	$scope.sortType     = 'dateCreated'; // set the default sort type
 	$scope.sortReverse  = true;  // set the default sort order
 	$scope.searchFish   = '';     // set the default search/filter term
@@ -15,7 +19,7 @@ function mainController($scope, $http) {
     		$scope.newStocks = {};
     		var symbols = '"' + $scope.codes.join('","') + '"';
     		var base = "https://query.yahooapis.com/v1/public/yql?q=";
-    		var query = "select Symbol, DaysHigh, Name from yahoo.finance.quotes where symbol in (" + symbols + ")";
+    		var query = "select Symbol, DaysHigh, Name, Currency from yahoo.finance.quotes where symbol in (" + symbols + ")";
     		var format = "&format=json&diagnostics=true";
     		var env = "&env=store://datatables.org/alltableswithkeys";
     		var url = base + query + format + env;
@@ -32,7 +36,8 @@ function mainController($scope, $http) {
 			    				"dayHigh": quote.DaysHigh,
 			    				"name": quote.Name,
 			    				"alertPercentage": 20,
-			    				"alertValue": (parseFloat(quote.DaysHigh) * 0.80).toFixed(2)
+			    				"alertValue": (parseFloat(quote.DaysHigh) * 0.80).toFixed(2),
+			    				"currency": quote.Currency
 			    			}
 			    		}
 			    		else {
@@ -47,7 +52,8 @@ function mainController($scope, $http) {
 				    				"dayHigh": quote.DaysHigh,
 				    				"name": quote.Name,
 				    				"alertPercentage": 20,
-				    				"alertValue": (parseFloat(quote.DaysHigh) * 0.80).toFixed(2)
+				    				"alertValue": (parseFloat(quote.DaysHigh) * 0.80).toFixed(2),
+				    				"currency": quote.Currency
 				    			}
 			    			} 
 			    			else {
@@ -108,12 +114,14 @@ function mainController($scope, $http) {
 
 	// when submitting the add form, send the text to the node API
 	$scope.createStock = function(key) {
+		console.log($scope.newStocks[key].currency);
 		var postData = {
 			"code": key,
 			"name": $scope.newStocks[key].name,
 			"dayHigh": $scope.newStocks[key].dayHigh,
 			"alertPercentage": $scope.newStocks[key].alertPercentage,
-			"alertValue": $scope.newStocks[key].alertValue
+			"alertValue": $scope.newStocks[key].alertValue,
+			"currency": $scope.newStocks[key].currency
 		}
 		console.log(postData);
 		delete $scope.newStocks[key];
@@ -133,10 +141,10 @@ function mainController($scope, $http) {
 	$scope.deleteStock = function(id) {
 		$http.delete('/api/stocks/' + id)
 			.success(function(data) {
-			data.forEach(function(datum){
-				datum["editing"] = false;
-				datum["deleting"] = false;
-			});
+				data.forEach(function(datum){
+					datum["editing"] = false;
+					datum["deleting"] = false;
+				});
 				$scope.stocks = data;
 			})
 			.error(function(data) {
@@ -164,12 +172,26 @@ function mainController($scope, $http) {
 	$scope.startEditing = function(stock){
 		console.log(stock);
 		stock.editing = true;
+		stock.tempPercentage = stock.alertPercentage;
+		stock.tempValue = stock.alertValue;
 	}
 	
 	$scope.stopEditing = function(commit, stock){
-		stock.editing = false;
+		var postData = {
+			"alertValue" : stock.tempValue,
+			"alertPercentage" : stock.tempPercentage
+		}
 		if(commit){
-			console.log('commited edit [TODO]');
+			$http.post('/api/stocks/' + stock._id, postData)
+			.success(function(data){
+				console.log(data);
+				stock.alertPercentage = data[0].alertPercentage;
+				stock.alertValue = data[0].alertValue;
+				stock.editing = false;
+			})
+			.error(function(data) {
+				console.log('Error: ' + data);
+			});
 		}
 	}
 	
