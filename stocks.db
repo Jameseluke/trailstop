@@ -1,15 +1,3 @@
-{"code":"NAB.AX","name":"NAT. BANK FPO","dayHigh":31.76,"alertPercentage":20,"alertValue":25.41,"dateCreated":1487635847532,"_id":"33eUYHah2uLuGpcP"}
-{"$$indexCreated":{"fieldName":"code","unique":true,"sparse":false}}
-{"$$deleted":true,"_id":"33eUYHah2uLuGpcP"}
 {"code":"GOOG","name":"Alphabet Inc.","dayHigh":828.07,"alertPercentage":20,"alertValue":662.46,"currency":"USD","dateCreated":1487635929582,"_id":"8KRxQu5kdYuN84cL"}
-{"code":"WES","name":"Western Gas Partners, LP Limite","dayHigh":65.42,"alertPercentage":20,"alertValue":52.34,"currency":"USD","dateCreated":1487635960296,"_id":"aOj9xLQD4dGR4u8p"}
-{"code":"WES","name":"Western Gas Partners, LP Limite","dayHigh":65.42,"alertPercentage":20,"alertValue":55.61,"currency":"USD","dateCreated":1487635960296,"_id":"aOj9xLQD4dGR4u8p"}
-{"code":"WES","name":"Western Gas Partners, LP Limite","dayHigh":65.42,"alertPercentage":20,"alertValue":55.61,"currency":"USD","dateCreated":1487635960296,"_id":"aOj9xLQD4dGR4u8p"}
-{"code":"WES","name":"Western Gas Partners, LP Limite","dayHigh":65.42,"alertPercentage":20,"alertValue":55.61,"currency":"USD","dateCreated":1487635960296,"_id":"aOj9xLQD4dGR4u8p"}
-{"code":"WES","name":"Western Gas Partners, LP Limite","dayHigh":65.42,"alertPercentage":20,"alertValue":52.34,"currency":"USD","dateCreated":1487635960296,"_id":"aOj9xLQD4dGR4u8p"}
 {"code":"WES","name":"Western Gas Partners, LP Limite","dayHigh":65.42,"alertPercentage":15,"alertValue":55.61,"currency":"USD","dateCreated":1487635960296,"_id":"aOj9xLQD4dGR4u8p"}
-{"code":"WES","name":"Western Gas Partners, LP Limite","dayHigh":65.42,"alertPercentage":20,"alertValue":52.34,"currency":"USD","dateCreated":1487635960296,"_id":"aOj9xLQD4dGR4u8p"}
-{"code":"WES","name":"Western Gas Partners, LP Limite","dayHigh":65.42,"alertPercentage":15,"alertValue":55.61,"currency":"USD","dateCreated":1487635960296,"_id":"aOj9xLQD4dGR4u8p"}
-{"code":"WES","name":"Western Gas Partners, LP Limite","dayHigh":65.42,"alertPercentage":25,"alertValue":49.06,"currency":"USD","dateCreated":1487635960296,"_id":"aOj9xLQD4dGR4u8p"}
-{"code":"WES","name":"Western Gas Partners, LP Limite","dayHigh":65.42,"alertPercentage":20,"alertValue":52.34,"currency":"USD","dateCreated":1487635960296,"_id":"aOj9xLQD4dGR4u8p"}
-{"code":"WES","name":"Western Gas Partners, LP Limite","dayHigh":65.42,"alertPercentage":15,"alertValue":55.61,"currency":"USD","dateCreated":1487635960296,"_id":"aOj9xLQD4dGR4u8p"}
+{"$$indexCreated":{"fieldName":"code","unique":true,"sparse":false}}
