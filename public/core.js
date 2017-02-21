@@ -20,7 +20,7 @@ function mainController($scope, $http) {
     		var symbols = '"' + $scope.codes.join('","') + '"';
     		var base = "https://query.yahooapis.com/v1/public/yql?q=";
     		var query = "select Symbol, DaysHigh, Name, Currency from yahoo.finance.quotes where symbol in (" + symbols + ")";
-    		var format = "&format=json&diagnostics=true";
+    		var format = "&format=json&diagnostics=false";
     		var env = "&env=store://datatables.org/alltableswithkeys";
     		var url = base + query + format + env;
     		 $http.get(url)
@@ -192,6 +192,9 @@ function mainController($scope, $http) {
 			.error(function(data) {
 				console.log('Error: ' + data);
 			});
+		}
+		else {
+			stock.editing = false;
 		}
 	}
 	

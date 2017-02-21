@@ -1,3 +1,4 @@
 {"code":"GOOG","name":"Alphabet Inc.","dayHigh":828.07,"alertPercentage":20,"alertValue":662.46,"currency":"USD","dateCreated":1487635929582,"_id":"8KRxQu5kdYuN84cL"}
 {"code":"WES","name":"Western Gas Partners, LP Limite","dayHigh":65.42,"alertPercentage":15,"alertValue":55.61,"currency":"USD","dateCreated":1487635960296,"_id":"aOj9xLQD4dGR4u8p"}
 {"$$indexCreated":{"fieldName":"code","unique":true,"sparse":false}}
+{"code":"ANZ.AX","name":"ANZ BANK FPO","dayHigh":30.74,"alertPercentage":5,"alertValue":29.2,"currency":"AUD","dateCreated":1487644877306,"_id":"I6KI7RW6RiiOxvLy"}
