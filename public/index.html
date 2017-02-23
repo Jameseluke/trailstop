@@ -19,13 +19,15 @@
 		#todo-form 	 			{ margin-bottom:50px; }
 		td						{ padding: 10px; }
 		.invis    				{ display: none;}
-		.btn 					{ width: 75px;}
+		td .btn 				{ width: 75px;}
+		#update 				{ min-width: 150px; margin-bottom: 20px;}
+		.alert 					{ margin-top: 20px;}
 		.bootstrap-select.btn-group .dropdown-menu li > a { text-align: center; }
 	</style>
 
 	<!-- SPELLS -->
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
-	
+	<script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.0.4/js/bootstrap-alert.js"></script>
 	<script src="core.js"></script>
 
 </head>
@@ -56,8 +58,20 @@
 				</tr>
 			</table>
 		</div>
-		<div id = "tracked" ng-show="!isEmptyObject(stocks)">
+		<div class="alert alert-danger" ng-show="alerts.length !== 0">
+		  <a href="#" class="close" ng-click="clearAlerts()" aria-label="close">&times;</a>
+		  <p ng-repeat="alert in alerts">Price of {{alert.code}} is ${{alert.price}}. This is below the trailing alert price of ${{alert.alert}}</p>
+		</div>
+		
+		<div class="alert alert-info" ng-show="updates.length !== 0">
+		  <a href="#" class="close" ng-click="clearUpdates()" aria-label="close">&times;</a>
+		  <p ng-repeat="update in updates">{{update.code}} alarm price set to ${{update.value}}</p>
+		</div>
+		
+		
+		<div id = "tracked" class="text-center" ng-show="!isEmptyObject(stocks)">
 			<h2 class ="text-center">Tracked Stocks</h2>
+			<button type="button" id="update" ng-click="update()" class="btn btn-primary btn-md text-center">Update</button>
 			<form>
 			    <div class="form-group">
 			      <div class="input-group">
@@ -155,36 +169,5 @@
 		<p class="text-center text-muted">
     		by James Luke
   		</p>
-		
-		
-		<!-- HEADER AND TODO COUNT -->
-		<!--<div class="jumbotron text-center">
-			<h1>I'm a Todo-aholic <span class="label label-info">{{ todos.length }}</span></h1>
-		</div>
-
-		<div id="todo-list" class="row">
-			<div class="col-sm-4 col-sm-offset-4">
-
-				<!-- LOOP OVER THE TODOS IN $scope.todos
-				<div class="checkbox" ng-repeat="todo in todos">
-					<label>
-						<input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}
-					</label>
-				</div>
-
-			</div>
-		</div>
-
-		<!-- FORM TO CREATE TODOS
-		
-
-		<div class="text-center text-muted">
-			<p>A demo by <a href="http://scotch.io">Scotch</a>.</p>
-			<p>Read the <a href="http://scotch.io/tutorials/javascript/creating-a-single-page-todo-app-with-node-and-angular">tutorial</a>.</p>
-		</div>
-
-	</div>
-	--!>
-
 </body>
 </html>

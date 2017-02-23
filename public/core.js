@@ -2,6 +2,8 @@ var scotchTodo = angular.module('scotchTodo', []);
 
 function mainController($scope, $http) {
 	$scope.newStocks = {};
+	$scope.alerts = [];
+	$scope.updates = [];
 	$scope.changeAlert = function(key){
 		$scope.newStocks[key].alertValue = (parseFloat($scope.newStocks[key].dayHigh) * (100-parseInt($scope.newStocks[key].alertPercentage))/100).toFixed(2);
 	}
@@ -208,5 +210,39 @@ function mainController($scope, $http) {
 		if(commit){
 			$scope.deleteStock(stock._id);
 		}
+	}
+	
+	$scope.update = function() {
+		$http.get('/api/stocks/update')
+			.success(function(data){
+				console.log(data);
+				$scope.updates = data.updates;
+				$scope.alerts = data.alerts;
+				
+				$http.get('/api/stocks')
+					.success(function(data) {
+						data.forEach(function(datum){
+							datum["editing"] = false;
+							datum["deleting"] = false;
+						});
+						console.log(data);
+						$scope.stocks = data;
+					})
+					.error(function(data) {
+						console.log('Error: ' + data);
+					});
+			})
+			.error(function(data) {
+				console.log('Error: ' + data);
+				$scope.alerts = ['Error: ' + data];
+			});
+	}
+	
+	$scope.clearUpdates = function() {
+		$scope.updates = [];
+	}
+	
+	$scope.clearAlerts = function() {
+		$scope.alerts = [];
 	}
 }
