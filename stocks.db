@@ -1,6 +1,6 @@
-{"code":"ANZ.AX","name":"ANZ BANK FPO","dayHigh":31.2,"alertPercentage":20,"alertValue":40,"currency":"AUD","dateCreated":1487821079322,"_id":"91TMwrWdkpISxA7E"}
+{"code":"ANZ.AX","name":"ANZ BANK FPO","dayHigh":31.2,"alertPercentage":20,"alertValue":31.14,"currency":"AUD","dateCreated":1487821079322,"_id":"91TMwrWdkpISxA7E"}
 {"code":"WES.AX","name":"WESFARMER FPO","dayHigh":43.49,"alertPercentage":20,"alertValue":55,"currency":"AUD","dateCreated":1487821078578,"_id":"J7LTbWNfyd3iBNU5"}
-{"code":"WES","name":"Western Gas Partners, LP Limite","dayHigh":65.42,"alertPercentage":15,"alertValue":56.287,"currency":"USD","dateCreated":1487635960296,"_id":"aOj9xLQD4dGR4u8p"}
-{"code":"AMZN","name":"Amazon.com, Inc.","dayHigh":858.43,"alertPercentage":20,"alertValue":630,"currency":"USD","dateCreated":1487821079440,"_id":"k8Xa2kJNQpHAtALD"}
-{"code":"GOOG","name":"Alphabet Inc.","dayHigh":833.25,"alertPercentage":20,"alertValue":500,"currency":"USD","dateCreated":1487821078932,"_id":"meteTm20rfUtBHyW"}
+{"code":"WES","name":"Western Gas Partners, LP Limite","dayHigh":65.42,"alertPercentage":15,"alertValue":"56.29","currency":"USD","dateCreated":1487635960296,"_id":"aOj9xLQD4dGR4u8p"}
+{"code":"AMZN","name":"Amazon.com, Inc.","dayHigh":858.43,"alertPercentage":15,"alertValue":50,"currency":"USD","dateCreated":1487821079440,"_id":"k8Xa2kJNQpHAtALD"}
+{"code":"GOOG","name":"Alphabet Inc.","dayHigh":833.25,"alertPercentage":20,"alertValue":"666.60","currency":"USD","dateCreated":1487821078932,"_id":"meteTm20rfUtBHyW"}
 {"$$indexCreated":{"fieldName":"code","unique":true,"sparse":false}}

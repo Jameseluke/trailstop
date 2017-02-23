@@ -4,6 +4,7 @@ function mainController($scope, $http) {
 	$scope.newStocks = {};
 	$scope.alerts = [];
 	$scope.updates = [];
+	$scope.updating = false;
 	$scope.changeAlert = function(key){
 		$scope.newStocks[key].alertValue = (parseFloat($scope.newStocks[key].dayHigh) * (100-parseInt($scope.newStocks[key].alertPercentage))/100).toFixed(2);
 	}
@@ -213,6 +214,7 @@ function mainController($scope, $http) {
 	}
 	
 	$scope.update = function() {
+		$scope.updating = true;
 		$http.get('/api/stocks/update')
 			.success(function(data){
 				console.log(data);
@@ -235,7 +237,10 @@ function mainController($scope, $http) {
 			.error(function(data) {
 				console.log('Error: ' + data);
 				$scope.alerts = ['Error: ' + data];
-			});
+			})
+			.finally(function(data) {
+				$scope.updating = false;
+			})
 	}
 	
 	$scope.clearUpdates = function() {

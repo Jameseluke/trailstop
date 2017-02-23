@@ -12,18 +12,7 @@
 	<!-- SCROLLS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-	<style>
-		html 					{ overflow-y:scroll; }
-		body 					{ padding-top:50px; }
-		#todo-list 				{ margin-bottom:30px; }
-		#todo-form 	 			{ margin-bottom:50px; }
-		td						{ padding: 10px; }
-		.invis    				{ display: none;}
-		td .btn 				{ width: 75px;}
-		#update 				{ min-width: 150px; margin-bottom: 20px;}
-		.alert 					{ margin-top: 20px;}
-		.bootstrap-select.btn-group .dropdown-menu li > a { text-align: center; }
-	</style>
+	<link rel="stylesheet" type="text/css" href="style.css">
 
 	<!-- SPELLS -->
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
@@ -33,6 +22,12 @@
 </head>
 <!-- SET THE CONTROLLER AND GET ALL TODOS WITH INITIALIZE FUNCTION -->
 <body ng-controller="mainController">
+	<div id="myModal" ng-show="updating" class="modal">
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	    <p class="text-center">Updating Tracked Stocks...</p>
+	  </div>
+	</div>
 	<div class="container">
 		<h2 class ="text-center">New Alerts</h2>
 	      <input type="text" class="form-control" ng-keydown="fetchStockData($event)" 
@@ -143,7 +138,7 @@
 				        <td>{{ stock.code }}</td>
 				        <td>{{ stock.name }}</td>
 				        <td>{{ stock.currency }}</td>
-				        <td>{{ stock.dayHigh }}</td>
+				        <td>{{ stock.dayHigh | number : 2}}</td>
 				        <td ng-show = "stock.editing"><select class="form-control" ng-model="stock.tempPercentage" ng-change="changeTempAlert(stock)" selected="20">
 									<option ng-selected="{{n == value.alertPercentage}}"ng-repeat="n in range(5,35,5)">{{n}}</option>
 						</select></td>
