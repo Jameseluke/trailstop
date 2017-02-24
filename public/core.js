@@ -4,7 +4,26 @@ function mainController($scope, $http) {
 	$scope.newStocks = {};
 	$scope.alerts = [];
 	$scope.updates = [];
+	$scope.codes = [];
 	$scope.updating = false;
+	$scope.sortType     = 'dateCreated'; // set the default sort type
+	$scope.sortReverse  = true;  // set the default sort order
+	$scope.searchStocks   = '';     // set the default search/filter term
+	
+	// when landing on the page, get all todos and show them
+	$http.get('/api/stocks')
+		.success(function(data) {
+			data.forEach(function(datum){
+				datum["editing"] = false;
+				datum["deleting"] = false;
+			});
+			console.log(data);
+			$scope.stocks = data;
+		})
+		.error(function(data) {
+			$scope.alerts.push('Error: ' + data);
+		});
+	
 	$scope.changeAlert = function(key){
 		$scope.newStocks[key].alertValue = (parseFloat($scope.newStocks[key].dayHigh) * (100-parseInt($scope.newStocks[key].alertPercentage))/100).toFixed(2);
 	}
@@ -13,14 +32,18 @@ function mainController($scope, $http) {
 		stock.tempValue = (parseFloat(stock.dayHigh) * (100-parseInt(stock.tempPercentage))/100).toFixed(2);
 	}
 	
-	$scope.sortType     = 'dateCreated'; // set the default sort type
-	$scope.sortReverse  = true;  // set the default sort order
-	$scope.searchFish   = '';     // set the default search/filter term
-	$scope.fetchStockData = function($event){
-		var key = $event.keyCode;
+	$scope.deleteNewStock = function(key){
+		delete $scope.newStocks[key];
+	}
+
+	$scope.fetchStockData = function($event){;
     	if($event.which === 13) {
-    		$scope.newStocks = {};
-    		var symbols = '"' + $scope.codes.join('","') + '"';
+    		//$scope.newStocks = {};
+    		if($scope.codes.length <= 1){
+    			var symbols = '"' + $scope.codes + '"';
+    		} else {
+    			var symbols = '"' + $scope.codes.join('","') + '"';
+    		}
     		var base = "https://query.yahooapis.com/v1/public/yql?q=";
     		var query = "select Symbol, DaysHigh, Name, Currency from yahoo.finance.quotes where symbol in (" + symbols + ")";
     		var format = "&format=json&diagnostics=false";
@@ -30,6 +53,7 @@ function mainController($scope, $http) {
 			    .then(function(response) {
 			    	if (!response.data.query.count){
 			    		// No results found
+			    		$scope.alerts.push('Error: Please Enter One or More Codes in the Format XYZ, XYZ, XYZ');
 			    	}
 			    	else if (response.data.query.count == 1){
 			    		var quote = response.data.query.results.quote;
@@ -44,7 +68,7 @@ function mainController($scope, $http) {
 			    			}
 			    		}
 			    		else {
-			    			// No match found
+			    			$scope.alerts.push('No company found for code ' + quote.Symbol.toUpperCase() + ".");
 			    		}
 			    		
 			    	}
@@ -60,17 +84,16 @@ function mainController($scope, $http) {
 				    			}
 			    			} 
 			    			else {
-			    				// no match found
+			    				$scope.alerts.push('No company found for code ' + quote.Symbol.toUpperCase() + ".");
 			    			}
 			    			
 			    		});
 			    	}
 			    });
-			               
-
             event.preventDefault();
         }
 	}
+	
 	$scope.range = (function() {
 		var cache = {};
 		return function(min, max, step) {
@@ -98,26 +121,12 @@ function mainController($scope, $http) {
 			return _range;
 		};
 	})();
+	
 	$scope.isEmptyObject = function(obj) {
     	return angular.equals({}, obj);
 	};
-	// when landing on the page, get all todos and show them
-	$http.get('/api/stocks')
-		.success(function(data) {
-			data.forEach(function(datum){
-				datum["editing"] = false;
-				datum["deleting"] = false;
-			});
-			console.log(data);
-			$scope.stocks = data;
-		})
-		.error(function(data) {
-			console.log('Error: ' + data);
-		});
-
-	// when submitting the add form, send the text to the node API
+	
 	$scope.createStock = function(key) {
-		console.log($scope.newStocks[key].currency);
 		var postData = {
 			"code": key,
 			"name": $scope.newStocks[key].name,
@@ -126,21 +135,18 @@ function mainController($scope, $http) {
 			"alertValue": $scope.newStocks[key].alertValue,
 			"currency": $scope.newStocks[key].currency
 		}
-		console.log(postData);
 		delete $scope.newStocks[key];
 		$http.post('/api/stocks', postData)
 			.success(function(data) {
 				delete $scope.codes[key];
 				// clear the form so our user is ready to enter another
 				$scope.stocks = data;
-				console.log(data);
 			})
 			.error(function(data) {
-				console.log('Error: ' + data);
+				$scope.alerts.push('Error: ' + data);
 			});
 	};
 
-	// delete a todo after checking it
 	$scope.deleteStock = function(id) {
 		$http.delete('/api/stocks/' + id)
 			.success(function(data) {
@@ -151,7 +157,7 @@ function mainController($scope, $http) {
 				$scope.stocks = data;
 			})
 			.error(function(data) {
-				console.log('Error: ' + data);
+				$scope.alerts.push('Error: ' + data);
 			});
 	};
 	
@@ -187,13 +193,12 @@ function mainController($scope, $http) {
 		if(commit){
 			$http.post('/api/stocks/' + stock._id, postData)
 			.success(function(data){
-				console.log(data);
 				stock.alertPercentage = data[0].alertPercentage;
 				stock.alertValue = data[0].alertValue;
 				stock.editing = false;
 			})
 			.error(function(data) {
-				console.log('Error: ' + data);
+				$scope.alerts.push('Error: ' + data);
 			});
 		}
 		else {
@@ -217,10 +222,8 @@ function mainController($scope, $http) {
 		$scope.updating = true;
 		$http.get('/api/stocks/update')
 			.success(function(data){
-				console.log(data);
 				$scope.updates = data.updates;
 				$scope.alerts = data.alerts;
-				
 				$http.get('/api/stocks')
 					.success(function(data) {
 						data.forEach(function(datum){
@@ -231,11 +234,10 @@ function mainController($scope, $http) {
 						$scope.stocks = data;
 					})
 					.error(function(data) {
-						console.log('Error: ' + data);
+						$scope.alerts.push('Error: ' + data);
 					});
 			})
 			.error(function(data) {
-				console.log('Error: ' + data);
 				$scope.alerts = ['Error: ' + data];
 			})
 			.finally(function(data) {

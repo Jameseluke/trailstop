@@ -49,13 +49,14 @@
 								<option ng-selected="{{n == value.alertPercentage}}"ng-repeat="n in range(5,35,5)">{{n}}</option>
 					</select></td>
 					<td><input type="text" class="form-control" ng-model="newStocks[key].alertValue"></td>
-					<td><button type="submit" class="btn btn-primary btn-block" ng-click="createStock(key)">Add</button></td>
+					<td style="width: 90px;"><button type="submit" class="btn btn-primary btn-block" ng-click="createStock(key)">Add</button></td>
+					<td style="width: 5px;"><a href="#" class="close form-control-static" ng-click="deleteNewStock(key)" aria-label="close">&times;</a></td>
 				</tr>
 			</table>
 		</div>
 		<div class="alert alert-danger" ng-show="alerts.length !== 0">
 		  <a href="#" class="close" ng-click="clearAlerts()" aria-label="close">&times;</a>
-		  <p ng-repeat="alert in alerts">Price of {{alert.code}} is ${{alert.price}}. This is below the trailing alert price of ${{alert.alert}}</p>
+		  <p ng-repeat="alert in alerts track by $index">{{alert}}</p>
 		</div>
 		
 		<div class="alert alert-info" ng-show="updates.length !== 0">
