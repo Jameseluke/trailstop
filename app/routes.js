@@ -115,6 +115,8 @@ module.exports = function (app) {
                             var data = JSON.parse(body).query;
                             data = (data.count == 1) ? [data.results.quote] : data.results.quote;
                             data.forEach(function(datum){
+                                stocks.update({ _id: oldStocks[datum.Symbol].id }, { $set: { dayHigh: datum.DaysHigh}}, {}, function () {
+                                    });
                                 if (oldStocks[datum.Symbol].alertValue < (datum.DaysHigh * (100-oldStocks[datum.Symbol].alertPercentage)/100).toFixed(2)) {
                                     var newAlertValue = (datum.DaysHigh * ((100-oldStocks[datum.Symbol].alertPercentage)/100)).toFixed(2);
                                     stocks.update({ _id: oldStocks[datum.Symbol].id }, { $set: { alertValue: newAlertValue}}, {}, function () {
@@ -123,12 +125,12 @@ module.exports = function (app) {
                                 }
                                 if (oldStocks[datum.Symbol].alertValue > datum.LastTradePriceOnly){
                                     // Alarm bells
-                                    alerts.push(datum.Symbol + " is $" + datum.LastTradePriceOnly + ". This is below the trailing alert price of $"+ oldStocks[datum.Symbol].alertValue);
+                                    alerts.push(datum.Symbol + " is $" + datum.LastTradePriceOnly + ". This is below the trailing alert price of $"+ oldStocks[datum.Symbol].alertValue.toFixed(2));
                                 }
                             });
                             // Send out alerts by email here
-                            var emails = ["JELuke@hotmail.com.au"];
-                            mailer.sendMail(emails, alerts);
+                            //var emails = ["JELuke@hotmail.com.au"];
+                            //mailer.sendMail(emails, alerts);
                             res.send({"updates": updates, "alerts": alerts});
                         }
                         else {

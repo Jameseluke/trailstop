@@ -60,7 +60,7 @@
 		
 		<div class="alert alert-info" ng-show="updates.length !== 0">
 		  <a href="#" class="close" ng-click="clearUpdates()" aria-label="close">&times;</a>
-		  <p ng-repeat="update in updates">{{update.code}} alarm price set to ${{update.value}}</p>
+		  <p ng-repeat="update in updates">{{update.code}} alarm price set to ${{update.value | number : 2}}</p>
 		</div>
 		
 		
@@ -144,7 +144,7 @@
 						</select></td>
 				        <td ng-show = "!stock.editing">{{ stock.alertPercentage }}</td>
 				        <td ng-show = "stock.editing"><input type="text" class="form-control" ng-model="stock.tempValue"></td>
-				        <td ng-show = "!stock.editing">{{ stock.alertValue }}</td>
+				        <td ng-show = "!stock.editing">{{ stock.alertValue | number : 2}}</td>
 				        <td>
 					   		<div class = "text-center">
 					        	<button id="btnEdit" class="btn btn-primary btn-md center-block" ng-show="!stock.editing && !stock.deleting"  ng-click="startEditing(stock)" >Edit</button>
