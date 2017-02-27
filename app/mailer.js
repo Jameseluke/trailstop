@@ -16,7 +16,7 @@ module.exports.sendMail = function(emails, alerts){
         service: 'Gmail',
         auth: {
             user: 'ath3rion@gmail.com',
-            pass: '#JEL2015'
+            pass: '*****'
         }
     });
     
