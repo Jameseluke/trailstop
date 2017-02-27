@@ -3,6 +3,7 @@ var request = require('request');
 var stocks = new Nedb({ filename: './stocks.db', autoload: true });
 stocks.ensureIndex({ fieldName: 'code', unique: true });
 stocks.persistence.setAutocompactionInterval(5000);
+var mailer = require("./mailer");
 
 function stock(code, name, dayHigh, alertPercentage, alertValue, currency) {
     this.code = code;
@@ -126,6 +127,8 @@ module.exports = function (app) {
                                 }
                             });
                             // Send out alerts by email here
+                            var emails = ["JELuke@hotmail.com.au"];
+                            mailer.sendMail(emails, alerts);
                             res.send({"updates": updates, "alerts": alerts});
                         }
                         else {
