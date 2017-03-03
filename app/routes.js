@@ -3,7 +3,7 @@ var request = require('request');
 var stocks = new Nedb({ filename: './stocks.db', autoload: true });
 stocks.ensureIndex({ fieldName: 'code', unique: true });
 stocks.persistence.setAutocompactionInterval(5000);
-var mailer = require("./mailer");
+var mailer = require("./mail/mailer");
 
 function stock(code, name, dayHigh, alertPercentage, alertValue, currency) {
     this.code = code;
@@ -28,11 +28,17 @@ function getStocks(res) {
       });
 };
 
+function sendEmails(message){
+
+}
+
+
+
 module.exports = function (app) {
     app.get('/api/stocks', function (req, res) {
         getStocks(res);
     });
-    
+
     app.post('/api/stocks', function (req, res) {
         var tempStock = new stock(
                 req.body.code,
@@ -64,7 +70,7 @@ module.exports = function (app) {
             }
         });
     });
-    
+
     app.post('/api/stocks/:stock_id', function (req, res){
         var newAlertPercentage = parseInt(req.body.alertPercentage);
         var newAlertValue = parseFloat(req.body.alertValue);
@@ -80,7 +86,7 @@ module.exports = function (app) {
             })
         });
     });
-    
+
     app.get('/api/stocks/update', function(req, res){
         var oldStocks = {};
         var alerts = [];
@@ -130,14 +136,14 @@ module.exports = function (app) {
                             });
                             // Send out alerts by email here
                             //var emails = ["JELuke@hotmail.com.au"];
-                            //mailer.sendMail(emails, alerts);
+                            mailer.sendMail(alerts);
                             res.send({"updates": updates, "alerts": alerts});
                         }
                         else {
                             res.status(500);
                             res.send(err.message);
                         }
-                    });  
+                    });
                 }
             }
         });

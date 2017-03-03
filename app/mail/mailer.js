@@ -1,34 +1,38 @@
 'use strict';
+var Nedb = require('nedb');
 const nodemailer = require('nodemailer');
+var emails = new Nedb({filename: './emails.db', autolaod: true });
+emails.ensureIndex({ fieldName: 'address', unique: true });
+var config = require("./config.json");
+var emaillist = ["JELuke@hotmail.com.au"]
 
-
-module.exports.sendMail = function(emails, alerts){
+module.exports.sendMail = function(messages){
     var alertText = "";
     var alertHTML = "<p>";
-    alerts.forEach(function(alert){
-       alertText += alert + "\n";
-       alertHTML += alert + "<br />";
+    messages.forEach(function(message){
+       alertText += message + "\n";
+       alertHTML += message + "<br />";
     });
     alertHTML += "</p>";
     console.log(alertHTML);
     // create reusable transporter object using the default SMTP transport
     var transporter = nodemailer.createTransport({
-        service: 'Gmail',
+        service: 'gmail',
         auth: {
-            user: 'ath3rion@gmail.com',
-            pass: '*****'
+            user: config.username,
+            pass: config.password
         }
     });
-    
+
     // setup email data with unicode symbols
     var mailOptions = {
         from: '"Trailing Stock Alerts" <NoReply@trailingstoploss.com>', // sender address
-        to: emails.join(", "), // list of receivers
+        to: emaillist.join(", "), // list of receivers
         subject: 'New Stock Alerts', // Subject line
         text: alertText, // plain text body
         html: alertHTML // html body
     };
-    
+
     // send mail with defined transport object
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
