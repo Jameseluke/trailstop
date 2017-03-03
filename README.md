@@ -2,6 +2,7 @@
 
 A Node app built with NEAN stack (NeDB, Express, Angular, NodeJS)
 Allows a user to track any number of stocks, with alerts being sent to a list of emails upon certain criteria being met.
+Currently only supports sending emails from a gmail account
 
 1. If the high price (HP) for the day is more than 20% above the alert price (AP), amend the AP to equal HP-20%.
 2. If HP is greater than AP by less than 20%, do nothing.
@@ -24,9 +25,9 @@ Other functionality that is included in the app is thus:
 ## Config.json
 ```javascript
 {
-  "username": "example@hotmail.com",
+  "username": "example@gmail.com",
   "password": "Pa$$W0RD",
-  "emails": ["sample@gmail.com", "Test@yahoo.com"]
+  "emails": ["sample@hotmail.com", "Test@yahoo.com"]
  }
  ```
  
