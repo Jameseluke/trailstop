@@ -1,31 +1,37 @@
-# Node Todo App
+# Trailing Stop Loss Stock Alert App
 
-A Node app built with MongoDB and Angular. For demonstration purposes and a tutorial.
+A Node app built with NEAN stack (NeDB, Express, Angular, NodeJS)
+Allows a user to track any number of stocks, with alerts being sent to a list of emails upon certain criteria being met.
 
-Node provides the RESTful API. Angular provides the frontend and accesses the API. MongoDB stores like a hoarder.
+1. If the high price (HP) for the day is more than 20% above the alert price (AP), amend the AP to equal HP-20%.
+2. If HP is greater than AP by less than 20%, do nothing.
+3. If closing price (CP) is less than AP, send alert to a given email address.
+ 
+Other functionality that is included in the app is thus:
 
-## Requirements
-
-- [Node and npm](http://nodejs.org)
-- MongoDB: Make sure you have your own local or remote MongoDB database URI configured in `config/database.js`
+1. The capacity to amend AP at any time manually.
+2. The capacity for multiple alert levels (eg. 5%, 10%, 20%) alterable at the user's discretion, whereby the above notification system will operate on the chosen basis.
+3. The capacity to add or remove stocks from the list.
 
 ## Installation
 
-1. Clone the repository: `git clone git@github.com:scotch-io/node-todo`
+1. Clone the repository: `git clone https://github.com/Jameseluke/trailstop.git`
 2. Install the application: `npm install`
-3. Place your own MongoDB URI in `config/database.js`
-3. Start the server: `node server.js`
-4. View in browser at `http://localhost:8080`
+3. Create a file named config.json in the folder /app/mail containing a json object as below 
+4. Start the server: `node server.js`
+5. View in browser at `http://localhost:8080`
 
-## Tutorial Series
-
-This repo corresponds to the Node Todo Tutorial Series on [scotch.io](http://scotch.io)
-
-Each branch represents a certain tutorial.
-- tut1-starter: [Creating a Single Page Todo App with Node and Angular](http://scotch.io/tutorials/javascript/creating-a-single-page-todo-app-with-node-and-angular)
-- tut2-organization: [Application Organization and Structure](https://scotch.io/tutorials/node-and-angular-to-do-app-application-organization-and-structure)
-- tut3-services: [Controllers and Services](https://scotch.io/tutorials/node-and-angular-to-do-app-controllers-and-services)
-
-Happy Todo-ing!
-
-![Todo-aholic](http://i.imgur.com/ikyqgrn.png)
+## Config.json
+```javascript
+{
+  "username": "example@hotmail.com",
+  "password": "Pa$$W0RD",
+  "emails": ["sample@gmail.com", "Test@yahoo.com"]
+ }
+ ```
+ 
+## Daily update
+The update functionality of the program can be called daily by added the following to the servers crontab
+```
+crontab - * * * * * curl 'localhost:8080/api/stocks/update'
+```
