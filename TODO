@@ -1,5 +1,0 @@
-Standardise display of prices - | number: 2 - or do below
-Always save and store prices as 2 decimal places
-Comment your fucking code
-decouple route and update functionality - learn promises
-crontab - * * * * * curl 'localhost:8080/api/stocks/update' && curl -sm 30 k.wdt.io/james.luke@hotmail.com.au/update?c=*_*_*_*_*
