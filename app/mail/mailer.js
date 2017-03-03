@@ -1,9 +1,6 @@
 'use strict';
 var Nedb = require('nedb');
 const nodemailer = require('nodemailer');
-var emails = new Nedb({filename: './emails.db', autolaod: true });
-emails.ensureIndex({ fieldName: 'address', unique: true });
-emails.persistence.setAutocompactionInterval(50000);
 var config = require("./config.json");
 
 module.exports.sendMail = function(messages){
