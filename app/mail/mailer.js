@@ -3,8 +3,8 @@ var Nedb = require('nedb');
 const nodemailer = require('nodemailer');
 var emails = new Nedb({filename: './emails.db', autolaod: true });
 emails.ensureIndex({ fieldName: 'address', unique: true });
+emails.persistence.setAutocompactionInterval(50000);
 var config = require("./config.json");
-var emaillist = ["JELuke@hotmail.com.au"]
 
 module.exports.sendMail = function(messages){
     var alertText = "";
@@ -14,7 +14,6 @@ module.exports.sendMail = function(messages){
        alertHTML += message + "<br />";
     });
     alertHTML += "</p>";
-    console.log(alertHTML);
     // create reusable transporter object using the default SMTP transport
     var transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -27,7 +26,7 @@ module.exports.sendMail = function(messages){
     // setup email data with unicode symbols
     var mailOptions = {
         from: '"Trailing Stock Alerts" <NoReply@trailingstoploss.com>', // sender address
-        to: emaillist.join(", "), // list of receivers
+        to: config.emails.join(", "), // list of receivers
         subject: 'New Stock Alerts', // Subject line
         text: alertText, // plain text body
         html: alertHTML // html body

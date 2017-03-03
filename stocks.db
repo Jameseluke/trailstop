@@ -1,3 +1,4 @@
 {"code":"ANZ.AX","name":"ANZ BANK FPO","dayHigh":"31.24","alertPercentage":15,"alertValue":37.5,"currency":"AUD","dateCreated":1488238491958,"_id":"D9XzwbFAmFZ4pTg8"}
 {"code":"BHP.AX","name":"BHP BLT FPO","dayHigh":"25.55","alertPercentage":20,"alertValue":"20.44","currency":"AUD","dateCreated":1488238456464,"_id":"FauM4DcD5fh1bP0e"}
+{"code":"WES.AX","name":"WESFARMER FPO","dayHigh":"43.27","alertPercentage":15,"alertValue":36.78,"currency":"AUD","dateCreated":1488521569647,"_id":"QxE8VC2HUy7QZLPu"}
 {"$$indexCreated":{"fieldName":"code","unique":true,"sparse":false}}
