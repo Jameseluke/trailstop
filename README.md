@@ -1,4 +1,4 @@
-# Trailing Stop Loss Stock Alert App
+# Trailing Stop Loss App
 
 A Node app built with NEAN stack (NeDB, Express, Angular, NodeJS)
 Allows a user to track any number of stocks, with alerts being sent to a list of emails upon certain criteria being met.
@@ -33,5 +33,5 @@ Other functionality that is included in the app is thus:
 ## Daily update
 The update functionality of the program can be called daily by added the following to the servers crontab
 ```
-crontab - * * * * * curl 'localhost:8080/api/stocks/update'
+crontab - 0 17 * * * curl 'localhost:8080/api/stocks/update'
 ```
