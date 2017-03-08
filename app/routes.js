@@ -136,7 +136,7 @@ module.exports = function (app) {
                             });
                             // Send out alerts by email here
                             //var emails = ["JELuke@hotmail.com.au"];
-                            mailer.sendMail(alerts);
+			    mailer.sendMail(alerts);
                             res.send({"updates": updates, "alerts": alerts});
                         }
                         else {

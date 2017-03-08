@@ -4,6 +4,10 @@ const nodemailer = require('nodemailer');
 var config = require("./config.json");
 
 module.exports.sendMail = function(messages){
+    if(messages.length <= 0){
+      console.log('No messages to send');
+      return;
+    }
     var alertText = "";
     var alertHTML = "<p>";
     messages.forEach(function(message){
