@@ -123,16 +123,18 @@ module.exports = function (app) {
                             data.forEach(function(datum){
                                 stocks.update({ _id: oldStocks[datum.Symbol].id }, { $set: { dayHigh: parseFloat(datum.DaysHigh)}}, {}, function () {
                                     });
+                                    var newAlertValue = oldStocks[datum.Symbol].alertValue;
                                 if (oldStocks[datum.Symbol].alertValue < (datum.DaysHigh * (100-oldStocks[datum.Symbol].alertPercentage)/100).toFixed(2)) {
-				    console.log(oldStocks[datum.Symbol].alertValue);
-				    console.log((datum.DaysHigh * (100-oldStocks[datum.Symbol].alertPercentage)/100).toFixed(2));
-                                    var newAlertValue = (datum.DaysHigh * ((100-oldStocks[datum.Symbol].alertPercentage)/100)).toFixed(2);
-                                    stocks.update({ _id: oldStocks[datum.Symbol].id }, { $set: { alertValue: parseFloat(newAlertValue)}}, {}, function () {
+                                    newAlertValue = (datum.DaysHigh * (100-oldStocks[datum.Symbol].alertPercentage)/100).toFixed(2);
+                                    stocks.update({ _id: oldStocks[datum.Symbol].id }, { $set: { alertValue: newAlertValue}}, {}, function () {
                                     });
                                     updates.push({"code": datum.Symbol, "value": newAlertValue});
                                 }
-                                if (oldStocks[datum.Symbol].alertValue > datum.LastTradePriceOnly){
+                                if (newAlertValue > parseFloat(datum.LastTradePriceOnly)){
                                     // Alarm bells
+                                    console.log(newAlertValue);
+                                    console.log(datum.LastTradePriceOnly);
+                                    console.log(newAlertValue > parseFloat(datum.LastTradePriceOnly));
                                     alerts.push(datum.Symbol + " is $" + datum.LastTradePriceOnly + ". This is below the trailing alert price of $"+ parseFloat(oldStocks[datum.Symbol].alertValue).toFixed(2));
                                 }
                             });
