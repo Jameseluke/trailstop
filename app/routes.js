@@ -124,7 +124,8 @@ module.exports = function (app) {
                                 stocks.update({ _id: oldStocks[datum.Symbol].id }, { $set: { dayHigh: parseFloat(datum.DaysHigh)}}, {}, function () {
                                     });
                                 if (oldStocks[datum.Symbol].alertValue < (datum.DaysHigh * (100-oldStocks[datum.Symbol].alertPercentage)/100).toFixed(2)) {
-				    console.log((datum.DaysHigh * (100-oldStocks[datum.Symbol].alertPercentage)/100));
+				    console.log(oldStocks[datum.Symbol].alertValue);
+				    console.log((datum.DaysHigh * (100-oldStocks[datum.Symbol].alertPercentage)/100).toFixed(2));
                                     var newAlertValue = (datum.DaysHigh * ((100-oldStocks[datum.Symbol].alertPercentage)/100)).toFixed(2);
                                     stocks.update({ _id: oldStocks[datum.Symbol].id }, { $set: { alertValue: parseFloat(newAlertValue)}}, {}, function () {
                                     });
