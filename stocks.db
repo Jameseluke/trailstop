@@ -1,10 +1,8 @@
-{"code":"WBC.AX","name":"WESTPAC FPO","dayHigh":"35.14","alertPercentage":5,"alertValue":33.89,"currency":"AUD","dateCreated":1489016741797,"_id":"53MuvVrZOarAZ5xg"}
-{"code":"DTL.AX","name":"DATA3 FPO","dayHigh":"1.700","alertPercentage":5,"alertValue":"1.61","currency":"AUD","dateCreated":1488956376330,"_id":"7ukau8wZttHbvX60"}
-{"code":"CSL.AX","name":"CSL FPO","dayHigh":"123.10","alertPercentage":25,"alertValue":"92.32","currency":"AUD","dateCreated":1488954728306,"_id":"Cck0Q9lMDwphWazo"}
-{"code":"ANZ.AX","name":"ANZ BANK FPO","dayHigh":"31.90","alertPercentage":25,"alertValue":"23.92","currency":"AUD","dateCreated":1488238491958,"_id":"D9XzwbFAmFZ4pTg8"}
-{"code":"CGC.AX","name":"COSTA GRP FPO","dayHigh":"4.35","alertPercentage":5,"alertValue":4.34,"currency":"AUD","dateCreated":1489015688860,"_id":"EZ6Ct3M3GBjDarUO"}
-{"code":"BHP.AX","name":"BHP BLT FPO","dayHigh":"24.31","alertPercentage":25,"alertValue":19.85,"currency":"AUD","dateCreated":1488238456464,"_id":"FauM4DcD5fh1bP0e"}
-{"code":"MPL.AX","name":"MEDIBANK FPO","dayHigh":"2.81","alertPercentage":25,"alertValue":2.3,"currency":"AUD","dateCreated":1488954792287,"_id":"GOjxhGjQV7Z0OV9h"}
-{"code":"WES.AX","name":"WESFARMER FPO","dayHigh":"43.80","alertPercentage":15,"alertValue":"37.23","currency":"AUD","dateCreated":1488521569647,"_id":"QxE8VC2HUy7QZLPu"}
-{"code":"CCP.AX","name":"CREDITCORP FPO","dayHigh":"17.05","alertPercentage":5,"alertValue":16.5,"currency":"AUD","dateCreated":1488956375216,"_id":"ltBFHGqAn9vTxbVa"}
+{"code":"DTL.AX","name":"DATA3 FPO","dayHigh":1,"alertPercentage":5,"alertValue":"1.61","currency":"AUD","dateCreated":1488956376330,"_id":"7ukau8wZttHbvX60"}
+{"code":"CSL.AX","name":"CSL FPO","dayHigh":123,"alertPercentage":25,"alertValue":92.32,"currency":"AUD","dateCreated":1488954728306,"_id":"Cck0Q9lMDwphWazo"}
+{"code":"ANZ.AX","name":"ANZ BANK FPO","dayHigh":31,"alertPercentage":25,"alertValue":23.92,"currency":"AUD","dateCreated":1488238491958,"_id":"D9XzwbFAmFZ4pTg8"}
+{"code":"BHP.AX","name":"BHP BLT FPO","dayHigh":24,"alertPercentage":25,"alertValue":19.85,"currency":"AUD","dateCreated":1488238456464,"_id":"FauM4DcD5fh1bP0e"}
+{"code":"MPL.AX","name":"MEDIBANK FPO","dayHigh":2,"alertPercentage":25,"alertValue":2.3,"currency":"AUD","dateCreated":1488954792287,"_id":"GOjxhGjQV7Z0OV9h"}
+{"code":"WES.AX","name":"WESFARMER FPO","dayHigh":43,"alertPercentage":15,"alertValue":"37.23","currency":"AUD","dateCreated":1488521569647,"_id":"QxE8VC2HUy7QZLPu"}
+{"code":"CCP.AX","name":"CREDITCORP FPO","dayHigh":17,"alertPercentage":5,"alertValue":"16.20","currency":"AUD","dateCreated":1488956375216,"_id":"ltBFHGqAn9vTxbVa"}
 {"$$indexCreated":{"fieldName":"code","unique":true,"sparse":false}}
