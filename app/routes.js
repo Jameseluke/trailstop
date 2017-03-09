@@ -121,7 +121,7 @@ module.exports = function (app) {
                             var data = JSON.parse(body).query;
                             data = (data.count == 1) ? [data.results.quote] : data.results.quote;
                             data.forEach(function(datum){
-                                stocks.update({ _id: oldStocks[datum.Symbol].id }, { $set: { dayHigh: parseInt(datum.DaysHigh)}}, {}, function () {
+                                stocks.update({ _id: oldStocks[datum.Symbol].id }, { $set: { dayHigh: parseFloat(datum.DaysHigh)}}, {}, function () {
                                     });
                                 if (oldStocks[datum.Symbol].alertValue < (datum.DaysHigh * (100-oldStocks[datum.Symbol].alertPercentage)/100).toFixed(2)) {
                                     var newAlertValue = (datum.DaysHigh * ((100-oldStocks[datum.Symbol].alertPercentage)/100)).toFixed(2);
